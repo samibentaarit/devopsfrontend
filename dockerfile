@@ -1,11 +1,10 @@
-
 # Stage 1: Build Angular app
 FROM node:latest as build
 
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci --only=production
 
 COPY . .
 RUN npm run build -- --prod
