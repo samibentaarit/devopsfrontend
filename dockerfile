@@ -1,24 +1,16 @@
-# Stage 1: Build Angular app
-FROM node:latest as build
 
-WORKDIR /app
 
-# Copy only package.json and package-lock.json for installing dependencies
-COPY package.json yarn.lock ./
 
-# Install all dependencies, including devDependencies, using yarn
 
-# Copy the entire project and build the Angular app
+FROM node:16-alpine
+WORKDIR /usr/src/app
+COPY package.json ./
+COPY yarn.lock ./
+RUN yarn install
 COPY . .
-RUN yarn run build --prod
-
-# Stage 2: Serve Angular app with Nginx
-FROM nginx:alpine
-
-# Copy built Angular app from the build stage to Nginx
-COPY --from=build /app/dist/crudtuto-Front /usr/share/nginx/html
-
+RUN yarn global add @angular/cli
+RUN ng build
+RUN yarn build
+RUN yarn global add serve
 EXPOSE 82
-
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD [ "serve", "-S" , "build"]
