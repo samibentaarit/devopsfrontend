@@ -4,14 +4,14 @@ FROM node:latest as build
 WORKDIR /app
 
 # Copy only package.json and package-lock.json for installing dependencies
-COPY package.json package-lock.json ./
+COPY package.json yarn.lock ./
 
-# Install all dependencies, including devDependencies
-RUN npm install
+# Install all dependencies, including devDependencies, using yarn
+RUN yarn install
 
 # Copy the entire project and build the Angular app
 COPY . .
-RUN npm run build -- --prod
+RUN yarn run build --prod
 
 # Stage 2: Serve Angular app with Nginx
 FROM nginx:alpine
