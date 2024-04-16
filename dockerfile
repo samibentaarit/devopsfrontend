@@ -6,5 +6,5 @@ RUN npm i
 COPY . .
 RUN ng build
 RUN npm i -g serve
-EXPOSE 3000
+EXPOSE 82 
 CMD [ "serve", "-S" , "dist/my-app-angular"]
