@@ -4,7 +4,6 @@ COPY package*.json ./
 RUN npm install -g @angular/cli
 RUN npm i
 COPY . .
-RUN npm install -g @angular/cli
 RUN ng build
 RUN npm i -g serve
 EXPOSE 3000
