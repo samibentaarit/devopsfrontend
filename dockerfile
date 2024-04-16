@@ -7,7 +7,6 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 
 # Install all dependencies, including devDependencies, using yarn
-RUN yarn install
 
 # Copy the entire project and build the Angular app
 COPY . .
