@@ -1,12 +1,11 @@
 FROM node:16-alpine
 WORKDIR /usr/src/app
-COPY package.json ./
-COPY yarn.lock ./
-RUN yarn install
+COPY package*.json ./
+RUN npm install -g @angular/cli
+RUN npm i
 COPY . .
-RUN yarn global add @angular/cli
+RUN npm install -g @angular/cli
 RUN ng build
-RUN yarn build
-RUN yarn global add serve
-EXPOSE 82
-CMD [ "serve", "-S" , "build"]
+RUN npm i -g serve
+EXPOSE 3000
+CMD [ "serve", "-S" , "dist/my-app-angular"]
