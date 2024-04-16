@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  angular-aplication:
+    image: samifront/angular
+    ports:
+      - "4201:80"  
+    restart: always  
