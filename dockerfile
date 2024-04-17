@@ -5,7 +5,6 @@ WORKDIR /app
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 # Install Angular CLI globally
-RUN npm install -g @angular/cli
 # Install dependencies
 RUN npm install
 # Copy the entire project to the working directory
