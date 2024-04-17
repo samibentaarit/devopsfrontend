@@ -1,14 +1,7 @@
-
-
-
-
-version: '3.8'
-
+version: "3.8"
 services:
-  angular-aplication:
-    build:
-      context: .
-      dockerfile: dockerfile
+  angular-app:
+    image: samibentaarit/sami-4twin-front:latest
     ports:
       - "4201:80"
-    restart: unless-stopped
+    restart: always
