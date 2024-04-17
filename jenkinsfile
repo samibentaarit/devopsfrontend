@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+
+environment {
+        DOCKER_IMAGE_NAME = "samibentaarit/sami-4twin-front"
+        DOCKER_HUB_CREDENTIALS = 'DOCKER' // Assuming this is the ID of Jenkins credentials
+        DOCKER_COMPOSE_VERSION = "1.29.2"
+    }
+
+
+    stages {
+        stage('Git') {
+            steps {
+                git branch: 'main', url: 'https://github.com/samibentaarit/devopsfrontend.git'
+            }
+        }
+
+
+
+        stage('docker Build') {
+            steps {
+                script {
+                    docker.build("${DOCKER_IMAGE_NAME}")
+                }
+            }
+        }
+
+        stage('docker push') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', "${DOCKER_HUB_CREDENTIALS}") {
+                        docker.image("${DOCKER_IMAGE_NAME}").push("latest")
+                    }
+                }
+            }
+        }
+
+        stage('Run Docker Compose') {
+            steps {
+                script {
+                    // Login to Docker Hub
+                    docker.withRegistry('', "${DOCKER_HUB_CREDENTIALS}") {
+                        // Pull the Docker images if needed
+                        sh "docker compose pull"
+                        // Run Docker Compose
+                        sh "docker compose up -d"
+                    }
+                }
+            }
+        }
+    }
+}
