@@ -7,7 +7,7 @@ COPY package*.json ./
 # Set NODE_OPTIONS before npm install
 ENV NODE_OPTIONS=--openssl-legacy-provider
 # Install Angular CLI globally
-RUN npm install -g @angular/cli
+RUN npm install -g @angular/cli@12.0.1 --unsafe-perm=true --allow-root
 # Install dependencies
 RUN npm install --force
 # Copy the entire project to the working directory
