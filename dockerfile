@@ -4,10 +4,12 @@ FROM node:latest as builder
 WORKDIR /app
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
+# Set NODE_OPTIONS before npm install
+ENV NODE_OPTIONS=--openssl-legacy-provider
 # Install Angular CLI globally
 RUN npm install -g @angular/cli
 # Install dependencies
-RUN npm install
+RUN npm install --force
 # Copy the entire project to the working directory
 COPY . .
 # Build the Angular app
