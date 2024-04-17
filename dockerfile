@@ -16,7 +16,6 @@ COPY . .
 RUN ng build
 # Use Nginx as a web server
 FROM nginx:alpine
-RUN ls -l /app/dist/
 
 # Copy the built Angular app
 EXPOSE 80
