@@ -17,5 +17,5 @@ RUN ng build
 # Use Nginx as a web server
 FROM nginx:alpine
 # Copy the built Angular app
-COPY --from=builder /app/dist/* /usr/share/nginx/html/
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
